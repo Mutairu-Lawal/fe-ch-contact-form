@@ -21,7 +21,7 @@ $font-karla: Karla;
   font-size: 16px;
   font-family: $font-karla, sans-serif;
   color: $grey-900;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 body {
@@ -121,7 +121,6 @@ body {
   margin-top: 1.5em;
 
   .label {
-    font-weight: 400;
     display: block;
     text-transform: capitalize;
     margin-bottom: 8px;
