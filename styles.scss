@@ -41,16 +41,12 @@ body {
 
   &:hover {
     cursor: pointer;
+    border-color: $green-600;
   }
 
   &:focus {
     outline-color: $green-600;
   }
-}
-
-.error-message {
-  display: block;
-  color: $red;
 }
 
 .container {
@@ -120,6 +116,12 @@ body {
 .input-container {
   margin-top: 1.5em;
 
+  p {
+    font-size: small;
+    margin-top: 5px;
+    display: none;
+  }
+
   .label {
     display: block;
     text-transform: capitalize;
@@ -132,19 +134,8 @@ body {
     }
   }
 
-  input[type='text'] {
-    padding: 10px;
-    border: 1px solid $grey-500;
-    border-radius: 5px;
-    width: 100%;
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    &:focus {
-      outline-color: $green-600;
-    }
+  input {
+    @extend %input-box;
   }
 
   .input-box {
@@ -154,6 +145,10 @@ body {
     align-items: center;
     gap: 10px;
     text-transform: capitalize;
+
+    &:hover {
+      border-color: $grey-500;
+    }
   }
 
   .radio-container {
@@ -206,65 +201,82 @@ body {
   }
 
   &:nth-child(6) {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
+    .flex {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
 
-    @media (min-width: 400px) {
-      gap: 10px;
-    }
+      input {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 25px;
+        height: 20px;
+        border: 2px solid $grey-500;
+        position: relative;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 0;
 
-    input {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      width: 30px;
-      height: 20px;
-      border: 2px solid $grey-500;
-      position: relative;
-      cursor: pointer;
-      background-color: white;
+        @media (min-width: 321px) {
+          width: 26px;
+        }
+        @media (min-width: 376px) {
+          width: 22px;
+        }
+        @media (min-width: 426px) {
+          width: 21px;
+        }
 
-      @media (min-width: 321px) {
-        width: 26px;
-      }
-      @media (min-width: 376px) {
-        width: 22px;
-      }
-      @media (min-width: 426px) {
-        width: 21px;
-      }
+        &:checked {
+          background-color: $green-600;
+          border-color: $green-600;
 
-      &:checked {
-        background-color: $green-600;
-        border-color: $green-600;
+          &::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg); /* Inner circle color */
 
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0px;
-          left: 5px;
-          width: 5px;
-          height: 10px;
-          border: solid white;
-          border-width: 0 3px 3px 0;
-          transform: rotate(45deg); /* Inner circle color */
-
-          @media (min-width: 480px) {
-            left: 4px;
+            @media (min-width: 480px) {
+              left: 6px;
+              top: 2px;
+            }
           }
+        }
+      }
+
+      .label {
+        margin-bottom: 0;
+
+        &::after {
+          margin-left: 0;
+          color: $grey-900;
         }
       }
     }
 
-    .label {
-      margin-bottom: 0;
-
-      &::after {
-        margin-left: 0;
-        color: $grey-900;
-      }
+    @media (min-width: 400px) {
+      gap: 10px;
     }
+  }
+}
+
+.error {
+  input,
+  textarea {
+    border-color: $red;
+  }
+
+  p {
+    display: block;
+    color: $red;
+    margin-top: 4px;
   }
 }

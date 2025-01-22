@@ -24,18 +24,28 @@
     <div class="container">
       <h1>Contact Us</h1>
       <form>
+        <!-- first name -->
         <div class="input-container">
           <h2 class="label">first name</h2>
           <input type="text" name="firstName" id="firstName" />
+          <p class="error-message">This field is required</p>
         </div>
+
+        <!-- last name -->
         <div class="input-container">
           <h2 class="label">last name</h2>
           <input type="text" name="lastName" id="lastName" />
+          <p class="error-message">This field is required</p>
         </div>
+
+        <!-- email -->
         <div class="input-container">
           <h2 class="label" for="email">email address</h2>
-          <input type="text" name="email" id="email" />
+          <input type="email" name="email" id="email" />
+          <p class="error-message">Please enter a valid email address</p>
         </div>
+
+        <!-- query type -->
         <div class="input-container">
           <h2 class="label">query type</h2>
           <div class="radio-container">
@@ -58,7 +68,10 @@
               <label for="support">support request</label>
             </div>
           </div>
+          <p class="error-message">Please select a query type</p>
         </div>
+
+        <!-- message -->
         <div class="input-container">
           <h2 class="label" for="messageBox">messages</h2>
           <textarea
@@ -67,12 +80,20 @@
             rows="5"
             cols="50"
           ></textarea>
+          <p class="error-message">This field is required</p>
         </div>
+
+        <!-- consent -->
         <div class="input-container">
-          <input type="checkbox" id="consent" name="consent" />
-          <label class="label" for="consent">
-            i consent to being contacted by the team
-          </label>
+          <div class="flex">
+            <input type="checkbox" id="consent" name="consent" />
+            <label class="label" for="consent">
+              i consent to being contacted by the team
+            </label>
+          </div>
+          <p class="error-message">
+            To submit this form, please consent to being contacted
+          </p>
         </div>
         <button type="submit">submit</button>
       </form>
