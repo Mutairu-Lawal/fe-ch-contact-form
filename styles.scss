@@ -20,8 +20,6 @@ $font-karla: Karla;
   list-style: none;
   font-size: 16px;
   font-family: $font-karla, sans-serif;
-  color: $grey-900;
-  font-weight: 500;
 }
 
 body {
@@ -31,6 +29,8 @@ body {
   align-items: center;
   min-height: 100dvh;
   padding: 2em 1em;
+  color: $grey-900;
+  font-weight: 500;
 }
 
 %input-box {
@@ -55,6 +55,7 @@ body {
   max-width: 600px;
   padding: 1.3em;
   border-radius: 10px;
+  position: relative;
 
   h1 {
     font-weight: bolder;
@@ -278,5 +279,32 @@ body {
     display: block;
     color: $red;
     margin-top: 4px;
+  }
+}
+
+.alert-modal {
+  background: $green-900;
+  padding: 1em;
+  border-radius: 10px;
+  min-width: 300px;
+  color: $white;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+
+  .icon-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  p {
+    margin-top: 4px;
+    font-weight: normal;
+  }
+
+  @media (min-width: 480px) {
+    width: max-content;
   }
 }

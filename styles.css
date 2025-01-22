@@ -10,8 +10,6 @@
   list-style: none;
   font-size: 16px;
   font-family: Karla, sans-serif;
-  color: hsl(187, 24%, 22%);
-  font-weight: 500;
 }
 
 body {
@@ -21,6 +19,8 @@ body {
   align-items: center;
   min-height: 100dvh;
   padding: 2em 1em;
+  color: hsl(187, 24%, 22%);
+  font-weight: 500;
 }
 
 .input-container textarea, .input-container .input-box, .input-container input {
@@ -43,6 +43,7 @@ body {
   max-width: 600px;
   padding: 1.3em;
   border-radius: 10px;
+  position: relative;
 }
 .container h1 {
   font-weight: bolder;
@@ -241,6 +242,32 @@ body {
   display: block;
   color: hsl(0, 66%, 54%);
   margin-top: 4px;
+}
+
+.alert-modal {
+  background: hsl(168, 81%, 11%);
+  padding: 1em;
+  border-radius: 10px;
+  min-width: 300px;
+  color: hsl(0, 0%, 100%);
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.alert-modal .icon-container {
+  display: flex;
+  gap: 10px;
+}
+.alert-modal p {
+  margin-top: 4px;
+  font-weight: normal;
+}
+@media (min-width: 480px) {
+  .alert-modal {
+    width: max-content;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
