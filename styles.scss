@@ -182,10 +182,10 @@ body {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 12px;
-          height: 12px;
+          width: 10px;
+          height: 10px;
           transform: translate(-50%, -50%);
-          background-color: $grey-900; /* Inner circle color */
+          background-color: $green-600; /* Inner circle color */
           border-radius: 50%;
         }
       }
