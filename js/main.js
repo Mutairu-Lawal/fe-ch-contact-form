@@ -3,6 +3,8 @@ $(document).ready(function () {
   $('form').on('submit', function (e) {
     e.preventDefault();
 
+    let isValid = true;
+
     $firstName = $('#firstName').val();
     $lastName = $('#lastName').val();
     $email = $('#email').val();
@@ -12,26 +14,22 @@ $(document).ready(function () {
 
     validateForm();
 
-    if (
-      $firstName &&
-      $lastName &&
-      $email &&
-      $queryType &&
-      $message &&
-      $consent
-    ) {
-      showAlert();
-      userData = {
-        firstName: $firstName,
-        lastName: $lastName,
-        email: $email,
-        queryType: $queryType,
-        message: $message,
-        consent: $consent,
-      };
+    document.querySelectorAll('.input-container').forEach((input) => {
+      if (input.classList.contains('error')) {
+        isValid = false;
+        return;
+      }
+    });
 
-      console.log(userData);
-    }
+    isValid && showAlert();
+    userData = {
+      firstName: $firstName,
+      lastName: $lastName,
+      email: $email,
+      queryType: $queryType,
+      message: $message,
+      consent: $consent,
+    };
   });
 
   // handle the radio input change event
