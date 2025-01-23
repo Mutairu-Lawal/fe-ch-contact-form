@@ -167,7 +167,6 @@ body {
       position: relative;
       cursor: pointer;
       outline: none;
-      background-color: white;
 
       &:checked {
         position: relative;
@@ -178,8 +177,8 @@ body {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 10px;
-          height: 10px;
+          width: 13px;
+          height: 13px;
           transform: translate(-50%, -50%);
           background-color: $green-600; /* Inner circle color */
           border-radius: 50%;
@@ -189,6 +188,10 @@ body {
 
     label {
       cursor: pointer;
+    }
+
+    .selected {
+      background: $green-200;
     }
 
     @media (min-width: 400px) {
@@ -288,10 +291,10 @@ body {
   border-radius: 10px;
   min-width: 300px;
   color: $white;
-  position: absolute;
-  top: 10%;
+  position: fixed;
+  top: 2%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
   display: none;
 
   .icon-container {
