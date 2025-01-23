@@ -37,8 +37,8 @@ Built a fully accessible contact form with:
 
 ### Links
 
-- Live Site: [Add your deployed URL]
-- Repository: [Add your repo URL]
+- Live Site: https://fe-ch-contact-form.netlify.app/
+- Repository: https://github.com/Mutairu-Lawal/fe-ch-contact-form/
 
 ## My process
 
@@ -71,5 +71,5 @@ Built a fully accessible contact form with:
 ## Author
 
 - Website - [Mutairu Lawal](https://mutairu-lawal.netlify.app/)
-- Frontend Mentor - [@mtlaw200](https://www.frontendmentor.io/profile/mtLaw200)
+- Frontend Mentor - [Mutairu-Lawal](https://www.frontendmentor.io/profile/Mutairu-Lawal)
 - Twitter - [@Amdrealmtlaw](https://twitter.com/Amdrealmtlaw)
