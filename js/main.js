@@ -1,125 +1,119 @@
 $(document).ready(function () {
-  // handle the form submit event
+  // Handle the form submit event
   $('form').on('submit', function (e) {
     e.preventDefault();
 
     let isValid = true;
 
-    $firstName = $('#firstName').val();
-    $lastName = $('#lastName').val();
-    $email = $('#email').val();
-    $queryType = $('input[name="queryType"]:checked').val();
-    $message = $('#messageBox').val();
-    $consent = $('#consent').is(':checked');
+    // Get input values
+    const firstName = $('#firstName').val();
+    const lastName = $('#lastName').val();
+    const email = $('#email').val();
+    const queryType = $('input[name="queryType"]:checked').val();
+    const message = $('#messageBox').val();
+    const consent = $('#consent').is(':checked');
 
+    // Validate form inputs
     validateForm();
 
-    document.querySelectorAll('.input-container').forEach((input) => {
-      if (input.classList.contains('error')) {
+    // Check if any input-container has error class
+    $('.input-container').each(function () {
+      if ($(this).hasClass('error')) {
         isValid = false;
-        return;
+        return false; // break out of .each loop early
       }
     });
 
-    isValid && showAlert();
-    userData = {
-      firstName: $firstName,
-      lastName: $lastName,
-      email: $email,
-      queryType: $queryType,
-      message: $message,
-      consent: $consent,
-    };
+    if (isValid) {
+      const userData = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        messages: message,
+        query_type: queryType,
+        consent,
+      };
+
+      fetch('http://127.0.0.1:8000/api/v1/users/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`HTTP error! status ${res.status}`);
+          }
+          console.log('data uploaded successfully');
+          showAlert();
+        })
+        .catch((err) => console.log(err.message));
+    }
   });
 
-  // handle the radio input change event
-  const inputBoxs = document.querySelectorAll('.input-box');
+  // Handle clicking on .input-box to select radio inputs
+  $('.input-box').on('click', function () {
+    const $inputBox = $(this);
+    const $radioInputs = $inputBox.find('input[type="radio"]');
+    const $selectedRadio = $inputBox.find('input[name="queryType"]');
 
-  inputBoxs.forEach((inputBox) => {
-    inputBox.addEventListener('click', () => {
-      // Get the selected radio input within the clicked input-box
-      const radioInputs = inputBox.querySelectorAll('input[type="radio"]');
+    // Reset all input-box classes
+    resetInputClasses();
 
-      // Get the selected radio input
-      const selectedRadio = inputBox.querySelector('input[name="queryType"]');
-
-      // RESET the 'selected' class from all input-boxes
-      resetInputClasses();
-
-      // Set the 'selected' class to the clicked input-box
-      radioInputs.forEach((radioInput) => {
-        if (radioInput.value === selectedRadio.value) {
-          radioInput.checked = true;
-          inputBox.classList.add('selected');
-        } else {
-          radioInput.checked = false;
-          inputBox.classList.remove('selected');
-        }
-      });
+    // Check and select the radio that matches selectedRadio's value
+    $radioInputs.each(function () {
+      if ($(this).val() === $selectedRadio.val()) {
+        $(this).prop('checked', true);
+        $inputBox.addClass('selected');
+      }
     });
   });
 });
 
+// ------ Global functions ------
+
 function showAlert() {
+  $('.alert-modal').slideDown();
+
   setTimeout(function () {
     $('.alert-modal').slideUp();
     $('form').trigger('reset');
     resetInputClasses();
   }, 2500);
-  $('.alert-modal').slideDown();
 }
 
 function validateForm() {
-  // Get all input fields
-  const inputs = document.querySelectorAll('.input-container');
+  $('.input-container').each(function () {
+    const $container = $(this);
+    const $input = $container.find('input, textarea').first();
 
-  // Loop through each input field
-  inputs.forEach((input) => {
-    const inputValue =
-      input.querySelector('input') || input.querySelector('textarea');
+    if ($input.attr('type') === 'radio') {
+      const isChecked =
+        $container.find('input[type="radio"]:checked').length > 0;
+      $container.toggleClass('error', !isChecked);
+    } else if ($input.attr('type') === 'checkbox') {
+      const isChecked =
+        $container.find('input[type="checkbox"]:checked').length > 0;
+      $container.toggleClass('error', !isChecked);
+    } else if (
+      $input.attr('type') === 'text' ||
+      $input.prop('tagName').toLowerCase() === 'textarea'
+    ) {
+      const value = $input.val().trim();
 
-    // Check if the input field is empty
-    if (inputValue.type === 'radio') {
-      const radioInputs = input.querySelectorAll('input[type="radio"]');
-      let isChecked = false;
-      radioInputs.forEach((radio) => {
-        if (radio.checked) {
-          isChecked = true;
-        }
-      });
-      if (!isChecked) {
-        input.classList.add('error');
-      } else {
-        input.classList.remove('error');
-      }
-    } else if (inputValue.type === 'checkbox') {
-      const checkboxInputs = input.querySelector(
-        'input[type="checkbox"]:checked'
-      );
-      if (!checkboxInputs) {
-        input.classList.add('error');
-      } else {
-        input.classList.remove('error');
-      }
-    } else if (inputValue.type === 'text' || inputValue.type === 'textarea') {
-      if (inputValue.value === '') {
-        input.classList.add('error');
-      } else if (inputValue.value && inputValue.name === 'email') {
+      if (value === '') {
+        $container.addClass('error');
+      } else if ($input.attr('name') === 'email') {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(inputValue.value)) {
-          input.classList.add('error');
-        } else {
-          input.classList.remove('error');
-        }
+        $container.toggleClass('error', !emailRegex.test(value));
       } else {
-        input.classList.remove('error');
+        $container.removeClass('error');
       }
     }
   });
 }
 
 function resetInputClasses() {
-  document.querySelectorAll('.input-box').forEach((box) => {
-    box.classList.remove('selected');
-  });
+  $('.input-box').removeClass('selected');
 }
